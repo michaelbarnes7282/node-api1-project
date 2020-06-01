@@ -1,11 +1,13 @@
 // import express from 'express'; // ES2015 Modules
 const express = require("express"); // CommonJS Modules
+const cors = require("cors");
 
 const server = express();
 
 var shortid = require('shortid')
 
 server.use(express.json()); // teaches express how to read JSON from the body
+server.use(cors());
 
 let users = [
     {
@@ -109,4 +111,4 @@ server.put("/api/users/:id", (req, res) => {
     }
 })
 
-server.listen(8000, () => console.log("\nAPI running on port 8000\n"));
+server.listen(4000, () => console.log("\nAPI running on port 8000\n"));
