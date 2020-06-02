@@ -14,6 +14,11 @@ let users = [
         id: 1,
         name: "Michael",
         bio: "A full stack web developer."
+    },
+    {
+        id: 2,
+        name: "mike",
+        bio: "A full stack web developer."
     }
 ]
 
@@ -58,9 +63,9 @@ server.get("/api/users", (req, res) => {
 server.get("/api/users/:id", (req, res) => {
     const id = req.params.id;
 
-    const thisUser = users.filter(user => user.id === id);
+    const thisUser = users.filter((user) => user.id == id);
 
-    if(id === undefined){
+    if(!thisUser){
         res.status(404).json({ message: "The user with the specified ID does not exist." })
     }
     else if (!thisUser){
@@ -74,13 +79,13 @@ server.get("/api/users/:id", (req, res) => {
 server.delete("/api/users/:id", (req, res) => {
     const id = req.params.id;
 
-    const thisUser = users.filter(user => user.id === id);
+    const thisUser = users.filter(user => user.id == id);
 
 
     if(id === undefined){
         res.status(404).json({ message: "The user with the specified ID does not exist." });
     }
-    else if (users.id){
+    else if (!thisUser){
         res.status(500).json({ errorMessage: "The user could not be removed" });
     }
     else {
