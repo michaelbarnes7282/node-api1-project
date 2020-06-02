@@ -1,16 +1,23 @@
 // import express from 'express'; // ES2015 Modules
 const express = require("express"); // CommonJS Modules
+const cors = require("cors");
 
 const server = express();
 
 var shortid = require('shortid')
 
 server.use(express.json()); // teaches express how to read JSON from the body
+server.use(cors());
 
 let users = [
     {
         id: 1,
         name: "Michael",
+        bio: "A full stack web developer."
+    },
+    {
+        id: 2,
+        name: "mike",
         bio: "A full stack web developer."
     }
 ]
@@ -56,9 +63,9 @@ server.get("/api/users", (req, res) => {
 server.get("/api/users/:id", (req, res) => {
     const id = req.params.id;
 
-    const thisUser = users.filter(user => user.id === id);
+    const thisUser = users.filter((user) => user.id == id);
 
-    if(id === undefined){
+    if(!thisUser){
         res.status(404).json({ message: "The user with the specified ID does not exist." })
     }
     else if (!thisUser){
@@ -72,13 +79,13 @@ server.get("/api/users/:id", (req, res) => {
 server.delete("/api/users/:id", (req, res) => {
     const id = req.params.id;
 
-    const thisUser = users.filter(user => user.id === id);
+    const thisUser = users.filter(user => user.id == id);
 
 
     if(id === undefined){
         res.status(404).json({ message: "The user with the specified ID does not exist." });
     }
-    else if (users.id){
+    else if (!thisUser){
         res.status(500).json({ errorMessage: "The user could not be removed" });
     }
     else {
@@ -109,4 +116,4 @@ server.put("/api/users/:id", (req, res) => {
     }
 })
 
-server.listen(8000, () => console.log("\nAPI running on port 8000\n"));
+server.listen(4000, () => console.log("\nAPI running on port 8000\n"));
